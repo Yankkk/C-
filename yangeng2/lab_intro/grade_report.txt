@@ -1,0 +1,41 @@
+Monad Autograder
+Testing lab_intro at 2014-09-01 01:43:09
+
+"There are two ways of constructing a software design. One way is to make it so simple that there are obviously no deficiencies. And the other way is to make it so complicated that there are no obvious deficiencies." ~ C.A.R. Hoare
+
+Setting up test environment...
+Compiling...
+================================================================
+rgbapixel.cpp:13:6: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        red = red;
+        ~~~ ^ ~~~
+rgbapixel.cpp:14:8: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        green = green;
+        ~~~~~ ^ ~~~~~
+rgbapixel.cpp:15:7: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        blue = blue;
+        ~~~~ ^ ~~~~
+3 warnings generated.
+rgbapixel.cpp:13:6: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        red = red;
+        ~~~ ^ ~~~
+rgbapixel.cpp:14:8: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        green = green;
+        ~~~~~ ^ ~~~~~
+rgbapixel.cpp:15:7: warning: explicitly assigning a variable of type 'uint8_t' (aka 'unsigned char') to itself [-Wself-assign]
+        blue = blue;
+        ~~~~ ^ ~~~~
+3 warnings generated.
+
+
+Running tests...
+================================================================
+testBrighten  . [33 pts] - passed
+testCrosshairs  [33 pts] - passed
+testBlendImages [34 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
