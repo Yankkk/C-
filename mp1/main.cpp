@@ -30,6 +30,7 @@ int main() {
 	}
 
 	output.writeToFile("out.png");
+	return 0;
 
 	
 
