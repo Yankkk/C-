@@ -60,20 +60,21 @@ void sketchify()
 
 			if (diff > 100)
 				*currOutPixel = *myPixel;
+				//*(*output)(x,y) = *myPixel;
 			
 		}
 		//std::cout << "end" << endl;
 	}
 	
 	// Save the output file
-	std::cout << "begin" << endl;
+	//std::cout << "begin" << endl;
 	output->writeToFile("out.png");
-	std::cout << "end" << endl;
+	//std::cout << "end" << endl;
 
 	// Clean up memory
-	//delete myPixel;
-	std::cout << "check1" << endl;
+	delete myPixel;
+	//std::cout << "check1" << endl;
 	delete output;
 	delete original;
-	std::cout << "check2" << endl;
+	//std::cout << "check2" << endl;
 }
