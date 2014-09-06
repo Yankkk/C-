@@ -19,10 +19,8 @@ void Image::flipleft()
     {
 	for(size_t j = 0; j < height(); j++)
 	{
-	    RGBAPixel* x = new RGBAPixel();
-	    x = PNG::operator()(i, j);
-	    RGBAPixel* y = new RGBAPixel();
- 	    y = PNG::operator()(width()-1-i, j);
+	    RGBAPixel* x = PNG::operator()(i, j);
+	    RGBAPixel* y = PNG::operator()(width()-1-i, j);
 	    RGBAPixel temp = *x;
 	    *x = *y;
 	    *y = temp;
