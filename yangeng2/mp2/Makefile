@@ -9,6 +9,8 @@ all : testimage
 testimage : testimage.o image.o rgbapixel.o png.o
 	$(LD) testimage.o image.o rgbapixel.o png.o $(LDFLAGS) -o testimage
 
+
+
 testimage.o : testimage.cpp image.h
 	$(CXX) $(CXXFLAGS) testimage.cpp
 
