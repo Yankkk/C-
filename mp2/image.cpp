@@ -3,13 +3,6 @@
 
 using namespace std;
 
-//Image const & Image::operator = (Image const & other)
-//{
-//    PNG::operator(other);
-//    return *this;
-//}
-
-
 /**
 * This function flip the image.
 */

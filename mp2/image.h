@@ -7,7 +7,7 @@ class Image : public PNG
 {
     public:
 
-	//Image const & operator =(Image const & other);
+	
 
         void flipleft();
 
