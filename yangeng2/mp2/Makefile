@@ -24,9 +24,6 @@ testimage.o : testimage.cpp image.h
 image.o : image.cpp image.h
 	$(CXX) $(CXXFLAGS) image.cpp
 
-main.o : main.cpp png.h rgbapixel.h
-	$(CXX) $(CXXFLAGS) main.cpp
-
 png.o : png.cpp png.h rgbapixel.h
 	$(CXX) $(CXXFLAGS) png.cpp
 
