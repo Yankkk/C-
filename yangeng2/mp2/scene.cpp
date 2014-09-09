@@ -101,22 +101,20 @@ const Scene & Scene::operator= (const Scene & source)
 void Scene::changemaxlayers(int newmax)
 {
     Image ** n = new Image * [newmax];
-    //n = NULL;
-    for(int i = 0; i < newmax; i ++){
-	n[i] = myImage[i];
-
-    }
     if(num > newmax){
 	for(int j = newmax; j < num; j++){
 	    if(myImage[j] != NULL){
 		cout<< "invalid newmax" << endl;
+		return;
 	    }
-	    delete myImage[j];
-
 	}
     }
+    for(int i = 0; i < newmax; i ++){
+	n[i] = myImage[i];
 
-    myImage = NULL;
+    }
+   
+    //myImage = NULL;
     myImage = n;
 
 
@@ -129,10 +127,14 @@ void Scene::addpicture(const char * FileName, int index, int x, int y)
 {
     if(index >= num || index < 0){
 	cout << "index out of bounds" << endl;
+	return;
+    }
+    if(myImage[index] != NULL){
+	delete myImage[index];
     }
     xx[index] = x;
     yy[index] = y;
-    delete myImage[index];
+    
     myImage[index] = new Image();
     myImage[index] -> readFromFile(FileName);
 
@@ -154,8 +156,7 @@ void Scene::changelayer(int index, int newindex)
     if(myImage[newindex] != NULL){
 	delete myImage[newindex];
     }
-    myImage[newindex] = new Image();
-    *myImage[newindex] = *myImage[index];
+    myImage[newindex] = myImage[index];
     xx[newindex] = xx[index];
     yy[newindex] = yy[index];
     myImage[index] = NULL;
@@ -166,7 +167,11 @@ void Scene::changelayer(int index, int newindex)
 */
 void Scene::translate(int index, int xcoord, int ycoord)
 {
-    if(index < 0 || index >= num || myImage[index] == NULL){
+    if(index < 0 || index >= num ){
+	cout << "invalid index" << endl;
+	return;
+    }
+    if(myImage[index] == NULL){
 	cout << "invalid index" << endl;
 	return;
     }
@@ -180,8 +185,13 @@ void Scene::translate(int index, int xcoord, int ycoord)
 */
 void Scene::deletepicture(int index)
 {
-    if(index < 0 || index >= num || myImage[index] == NULL){
+    if(index < 0 || index >= num){
 	cout << "invalid index" << endl;
+	return;
+    }
+    if(myImage[index] == NULL){
+	cout << "invalid index" << endl;
+	return;
     }
 
     delete myImage[index];
@@ -195,6 +205,7 @@ Image * Scene::getpicture(int index) const
 {
     if(index < 0 || index >= num){
 	cout << "invalid index" << endl;
+	return NULL;
     }
     Image * p = myImage[index];
     return p;
@@ -209,6 +220,7 @@ Image Scene::drawscene() const
     size_t w = 0;
     size_t h = 0;
     
+//Calculate the width and height of the new image
     for(int i = 0 ; i < num; i++){
 	if(myImage[i] != NULL){
 	    size_t wid = myImage[i] -> width();
@@ -221,9 +233,12 @@ Image Scene::drawscene() const
 	    }
 	}
     }
+
+//change the size of image to w,h
     Image image;
     image.resize(w, h);
 
+//put the images into one Image with given position
     for(int j = 0; j < num; j++){
 	if(myImage[j] != NULL){
 	for(size_t k = 0; k < myImage[j] -> width(); k++){
