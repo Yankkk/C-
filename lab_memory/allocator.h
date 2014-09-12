@@ -26,6 +26,11 @@ class Allocator
          */
         Allocator(const string & studentFile, const string & roomFile);
 
+	/**
+	*Destructor
+	*/
+	~Allocator();
+
         /**
          * Calls the solving routine to allocate student letter
          *  groups to rooms.
@@ -61,6 +66,11 @@ class Allocator
          * @param file The file to read the room list from
          */
         void loadRooms(const string & file);
+
+	/**
+	* Clearn the memory
+	*/
+	void clear();
 
         /**
          * Runs the algorithm on the set of rooms and students.
