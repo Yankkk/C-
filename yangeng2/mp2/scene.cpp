@@ -109,12 +109,23 @@ void Scene::changemaxlayers(int newmax)
 	    }
 	}
     }
-    for(int i = 0; i < newmax; i ++){
-	n[i] = myImage[i];
-
+    if(num >= newmax){
+	for(int i = 0; i < newmax; i ++){
+	        n[i] = myImage[i];
+	   
+        }
     }
-   
-    //myImage = NULL;
+    else if(num < newmax){
+	for(int i = 0; i < num; i++){
+	    n[i]=myImage[i];
+	}
+	for(int j = num; j < newmax; j++){
+	    n[j] = NULL;
+	}
+    }
+
+    num = newmax;
+    delete [] myImage;
     myImage = n;
 
 
