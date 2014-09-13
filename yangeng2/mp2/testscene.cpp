@@ -21,7 +21,7 @@ int main()
 	set->addpicture("in_03.png", 2, 150, 0);
 	Image result = set->drawscene();
 	result.writeToFile("scene.png");	
-	
+
 	set->changelayer(1, 3);
 	result = set->drawscene();
 	result.writeToFile("scene2.png");

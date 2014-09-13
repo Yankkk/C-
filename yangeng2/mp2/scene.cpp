@@ -100,7 +100,7 @@ const Scene & Scene::operator= (const Scene & source)
 */
 void Scene::changemaxlayers(int newmax)
 {
-    Image ** n = new Image * [newmax];
+    
     if(num > newmax){
 	for(int j = newmax; j < num; j++){
 	    if(myImage[j] != NULL){
@@ -109,6 +109,7 @@ void Scene::changemaxlayers(int newmax)
 	    }
 	}
     }
+    Image ** n = new Image * [newmax];
     if(num >= newmax){
 	for(int i = 0; i < newmax; i ++){
 	        n[i] = myImage[i];
