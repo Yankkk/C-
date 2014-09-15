@@ -20,7 +20,8 @@ int main()
 	set->addpicture("in_02.png", 1, 60, 60);
 	set->addpicture("in_03.png", 2, 150, 0);
 	Image result = set->drawscene();
-	result.writeToFile("scene.png");	
+	result.writeToFile("scene.png");
+	
 
 	set->changelayer(1, 3);
 	result = set->drawscene();
