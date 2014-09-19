@@ -15,10 +15,11 @@
 
 const double PI = 3.141592;
 
-Circle::Circle(const Vector2& pcenter, const RGBAPixel& pcolor, int pradius)
-	: radius_(pradius)
+Circle::Circle(const Vector2& pcenter, const RGBAPixel& pcolor, int pradius):Shape(pcenter, pcolor)
+	//: radius_(pradius)
 {
 	/* Nothing.  See initialization list. */
+	radius_ = pradius;
 }
 
 int Circle::area() const
