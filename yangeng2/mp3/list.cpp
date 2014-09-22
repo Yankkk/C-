@@ -345,7 +345,23 @@ template <class T>
 typename List<T>::ListNode * List<T>::split(ListNode * start, int splitPoint)
 {
     /// @todo Graded in MP3.2
-    return NULL; // change me!
+    if(splitPoint > length)
+	return NULL;
+    
+    ListNode * temp = start;
+    //List<T> list2 = *this;
+    for(int i = 0; i < splitPoint; i++){
+	if(temp->next != NULL){
+	    temp = temp->next;
+	    
+	}
+    }
+    
+    temp->prev->next = NULL;
+    temp->prev = NULL;
+    
+
+    return temp; 
 }
 
 /**
@@ -389,7 +405,63 @@ template <class T>
 typename List<T>::ListNode * List<T>::merge(ListNode * first, ListNode * second)
 {
     /// @todo Graded in MP3.2
-    return NULL; // change me!
+
+
+    if(first == NULL && second == NULL)
+	return NULL;
+    if(first == NULL)
+	return second;
+    if(second == NULL)
+	return first;
+
+    ListNode * temp;    
+    ListNode * temp3;
+    ListNode * temp2; 
+
+    if(second->data < first->data){
+	temp = second;
+        temp2 = second->next;
+	first->prev= second;
+	second->next = first;
+	    
+	if(temp2 != NULL){
+	    second = temp2;
+	    
+	}
+	else
+	    second = NULL;
+    }
+    else{
+	temp = first;
+	temp3 = first;
+	first = first->next;
+    }
+    
+
+    while(first != NULL && second != NULL){
+
+	if(first->data < second->data){
+	    temp3 = first;
+	    first=first->next;
+
+        }
+        else{
+	    temp2 = second->next;
+	    first->prev->next = second;
+	    second->prev = first->prev;
+	    second->next = first;
+	    first->prev = second;
+
+	    second = temp2;
+        }
+    }
+    if(first == NULL){
+	temp3->next = second;
+	second->prev = temp3;
+	
+    }
+    
+    return temp; // change
 }
 
 /**
@@ -419,5 +491,33 @@ template <class T>
 typename List<T>::ListNode * List<T>::mergesort(ListNode * start, int chainLength)
 {
     /// @todo Graded in MP3.2
-    return NULL; // change me!
+    if(start == NULL)
+	return NULL;
+    if(chainLength == 1)
+	return start;
+
+    int mid = chainLength / 2;
+    int sechalf = chainLength - mid;
+
+    ListNode * temp = split(start, mid);
+    
+    ListNode * temp2 = mergesort(start, mid);
+    ListNode * temp3 = mergesort(temp, sechalf);
+
+    return merge(temp2, temp3);
+    
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
