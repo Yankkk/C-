@@ -65,8 +65,7 @@ void List<T>::insertFront(T const & ndata)
 	head = t;
     }
     length ++;
-    t = NULL;
-
+    //t = NULL;
 }
 
 /**
@@ -91,8 +90,8 @@ void List<T>::insertBack( const T & ndata )
 	t->prev->next = t;
 	tail = t;
     }
-    t = NULL;
     length ++;
+    //t = NULL;
 }
 
 
@@ -133,12 +132,12 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 
     if(startPoint->prev != NULL){
 	s = startPoint->prev;
-	s->next = NULL;
+	//s->next = NULL;
     }
 
     if(endPoint->next != NULL){
 	e = endPoint->next;
-	e->prev = NULL;
+	//e->prev = NULL;
     }
     
     ListNode * t = NULL;
@@ -169,9 +168,9 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 	startPoint->prev = s;
 	s->next = startPoint;
     }
-//    else{
-//	startPoint->prev = NULL;
-//    }
+    else{
+	startPoint->prev = NULL;
+    }
 
     if(e!=NULL){    
 	endPoint->next = e;
@@ -222,16 +221,17 @@ void List<T>::reverseNth( int n )
         }
         reverse(s, e);
 
-	if(count == n){
+	//if(count == n){
 	    while(head->prev != NULL){
 		head = head->prev;
 	    }
-        }
-	if(count >= length){
+        //}
+	//if(count >= length){
 	    while(tail->next != NULL){
 		tail = tail->next;
             }
-	}
+	//}
+
 	if(e->next != NULL){
             s = e->next;
 	    e = s;
