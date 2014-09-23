@@ -15,6 +15,12 @@
  * memory does not leak on destruction of a list.
  */
 
+#include <algorithm>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 template <class T>
 List<T>::~List()
@@ -124,7 +130,8 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
     if(startPoint == NULL || endPoint == NULL){
 	return;
     }
-    if(startPoint == endPoint){
+    if( startPoint ==  endPoint){
+	//cout << "aa" << endl;
 	return;
     }
 
@@ -222,18 +229,6 @@ void List<T>::reverseNth( int n )
 	    count++;
         }
         reverse(s, e);
-
-	/**if(count == n){
-	    while(head->prev != NULL){
-		head = head->prev;
-	    }
-        }
-	//if(count >= length){
-	    while(tail->next != NULL){
-		tail = tail->next;
-            }
-	//}
-*/
 
 	if(e->next != NULL){
             s = e->next;
