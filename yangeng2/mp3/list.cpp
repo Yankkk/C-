@@ -14,6 +14,8 @@
  * Destroys the current List. This function should ensure that
  * memory does not leak on destruction of a list.
  */
+
+
 template <class T>
 List<T>::~List()
 {
@@ -180,6 +182,7 @@ void List<T>::reverse( ListNode * & startPoint, ListNode * & endPoint )
 	endPoint->next = NULL;
     }
 
+
     return;
 
 	
@@ -199,12 +202,11 @@ void List<T>::reverseNth( int n )
     if(head == NULL || tail == NULL || head == tail){
 	return;
     }
-    if(n == 0){
+    if(n == 0 || n == 1){
 	return;
     }
-    if(n == 1){
-	return;
-    }
+
+    
     if(n >= length){
 	reverse(head, tail);
 	return;
@@ -221,16 +223,17 @@ void List<T>::reverseNth( int n )
         }
         reverse(s, e);
 
-	//if(count == n){
+	/**if(count == n){
 	    while(head->prev != NULL){
 		head = head->prev;
 	    }
-        //}
+        }
 	//if(count >= length){
 	    while(tail->next != NULL){
 		tail = tail->next;
             }
 	//}
+*/
 
 	if(e->next != NULL){
             s = e->next;
@@ -238,6 +241,12 @@ void List<T>::reverseNth( int n )
 	    count++;
 	}
 	
+    }
+    while(head->prev != NULL){
+	head = head->prev;
+    }
+    while(tail->next != NULL){
+	tail = tail->next;
     }
 
     return;
@@ -261,7 +270,7 @@ void List<T>::waterfall()
     if(head == NULL){
 	return;
     }
-    if(length == 2){
+    if(length == 2 || length == 1){
 	return;
     }
 
