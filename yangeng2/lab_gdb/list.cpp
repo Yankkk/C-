@@ -32,6 +32,16 @@ void List<T>::clear()
 {
     // @todo Graded in lab_gdb
     // Write this function based on mp3
+
+        ListNode * t;
+	while(head != NULL){
+		t = head->next;
+		delete head;
+		head = t;
+		
+	}
+	length = 0;
+	head = NULL;
 }
 
 /**
@@ -45,6 +55,20 @@ void List<T>::insertFront(T const & ndata)
 {
     // @todo Graded in lab_gdb
     // Write this function based on mp3
+
+    ListNode * t = new ListNode(ndata);
+    t->next = head;
+    if(head == NULL){
+	
+	t->next = NULL;
+	head = t;
+    }
+    else{
+	
+	head = t;
+    }
+    length ++;
+    //t = NULL;
 }
 
 /**
@@ -63,12 +87,13 @@ void List<T>::insertBack( const T & ndata )
     if (temp == NULL)
     {
         head = new ListNode(ndata);
+	length++;
     }
     else
     {
         while (temp->next != NULL)
             temp = temp->next;
-        temp = new ListNode(ndata);
+        temp->next= new ListNode(ndata);
         length++;
     }
 }
@@ -97,7 +122,9 @@ typename List<T>::ListNode* List<T>::reverse( ListNode * curr, ListNode * prev, 
 {
     // @todo Graded in lab_gdb
     ListNode * temp;
-    if (len <= 0)
+    if(len == 0)
+	return NULL;
+    if (len == 1 || curr->next == NULL)
     {
         curr->next = prev;
         return curr;
@@ -128,11 +155,13 @@ void List<T>::shuffle()
     // two should point at the start of the second half-list
     ListNode * one, * two, * prev, * temp;
     one = two = prev = temp = head;
+    if(length<=2) return;
 
-    for (int i = 0; i < length/2; i++)
+    for (int i = 0; i < (length+1)/2; i++)
     {
         prev = two;
         two = two->next;
+
     }
     prev->next = NULL;
 
@@ -143,6 +172,7 @@ void List<T>::shuffle()
         one->next = two;
         two = two->next;
         one->next->next = temp;
+	one = temp;
     }
 }
 
