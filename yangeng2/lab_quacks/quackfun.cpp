@@ -24,7 +24,16 @@ template <typename T>
 T QuackFun::sum(stack<T> & s)
 {
     // Your code here
-    return T(); // stub return value (0 for primitive types). Change this!
+    if(s.empty()){
+	return 0;
+    }
+    T temp =  s.top();
+    s.pop();
+    T sums = sum(s);
+    sums = sums + temp;
+    s.push(temp);
+
+    return sums; // stub return value (0 for primitive types). Change this!
                 // Note: T() is the default value for objects, and 0 for
                 // primitive types
 }
@@ -44,9 +53,46 @@ template <typename T>
 void QuackFun::scramble(queue<T> & q)
 {
     stack<T> s;
-    // optional: queue<T> q2;
 
-    // Your code here
+    int count = 1;
+    int sizes = q.size();
+   // std::cout << sizes << std::endl;
+    T temp;
+    int c = 0;
+    while(count < sizes){
+        c++;
+	std::cout << c << std::endl;
+        if(c % 2 == 1){
+	   for(int i = 0; i < c; i++){
+	      if(count <= sizes){
+		temp =  q.front();	
+		q.pop(); 
+		q.push(temp);
+	 	count++;
+   }
+	}
+   }
+	else{
+	    for(int j = 0; j < c; j++){
+    		if(count <= sizes){	
+	           temp = q.front();
+		   q.pop();
+		   s.push(temp);
+		   count ++;
+          }
+	}
+	    while(!s.empty()){
+		temp = s.top();
+		q.push(temp);
+		s.pop();
+        }
+   }
+  
+
+}
+
+
+
 }
 
 /**
@@ -64,10 +110,29 @@ void QuackFun::scramble(queue<T> & q)
 template <typename T>
 bool QuackFun::verifySame(stack<T> & s, queue<T> & q)
 {
-    bool retval = true; // optional
-    //T temp1; // rename me
-    //T temp2; // rename :)
-    
+    bool retval = true; 
+    T temp1; 
+    T temp2; 
+
+    if(s.empty()){
+	return true;
+    }
+
+    temp1 = s.top();
+    temp2 = q.front();
+
+    s.pop();
+    q.pop();
+    q.push(temp2);
+
+    retval = verifySame(s, q);
+    s.push(temp1);
+    if(temp1 != temp2)
+	retval = false;
+
     return retval;
+
+
+
 }
 
