@@ -117,15 +117,16 @@ bool QuackFun::verifySame(stack<T> & s, queue<T> & q)
     if(s.empty()){
 	return true;
     }
-
     temp1 = s.top();
-    temp2 = q.front();
+    
 
     s.pop();
+    retval = verifySame(s, q);
+    temp2 = q.front();
     q.pop();
     q.push(temp2);
 
-    retval = verifySame(s, q);
+    
     s.push(temp1);
     if(temp1 != temp2)
 	retval = false;
