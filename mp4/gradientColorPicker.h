@@ -71,6 +71,11 @@ class gradientColorPicker : public colorPicker {
 		 * @todo Add any necessary private storage here! You may also add
 		 *	private helper functions as you see fit.
 		 */
+		RGBAPixel endColor;
+		RGBAPixel startColor;
+		int xx;
+		int yy;
+		int trans;
 };
 
 #endif
