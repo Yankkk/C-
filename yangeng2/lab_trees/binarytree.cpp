@@ -76,6 +76,23 @@ template <typename T>
 void BinaryTree<T>::mirror()
 {
 	// your code here
+	mirror(root);
+
+}
+
+template <typename T>
+void BinaryTree<T>::mirror(Node * & subRoot) 
+{
+        if(subRoot == NULL)
+	    return;
+        Node * temp = subRoot->left;
+        subRoot->left = subRoot->right;
+        subRoot->right = temp;
+
+
+	mirror(subRoot->left);
+        mirror(subRoot->right);
+
 }
 
 /**
@@ -87,7 +104,26 @@ template <typename T>
 bool BinaryTree<T>::isOrdered() const
 {
     // your code here
-	return false;
+	return isOrdered(root);
+	
+}
+
+
+template <typename T>
+bool BinaryTree<T>::isOrdered(const Node * subRoot) const
+{
+        if(subRoot == NULL)
+	    return true;
+	
+	if((subRoot->left != NULL) && (subRoot->left->elem) > (subRoot->elem))
+	    return false;
+	if((subRoot->right != NULL) && (subRoot->right->elem) < (subRoot->elem))
+	    return false;
+
+	
+
+	return isOrdered(subRoot->left) && isOrdered(subRoot->right);
+
 }
 
 /**
@@ -100,7 +136,36 @@ template <typename T>
 void BinaryTree<T>::printPaths() const
 {
     // your code here
+	T * nodesList = new T[200]; 
+	int count = 0;
+	printPaths(root, nodesList, count);
+	delete [] nodesList;
 }
+
+template <typename T>
+void BinaryTree<T>::printPaths(const Node * subRoot, T * nodeList, int count) const
+{
+	if(subRoot == NULL)
+	    return;
+	
+	nodeList[count] = subRoot->elem;
+	count++;
+	if(subRoot->right == NULL && subRoot->left == NULL){
+	    cout << "Path:";
+	    for(int i = 0; i < count; i++){
+		cout << " " << nodeList[i];
+	    }
+	    cout << "" << endl;
+	}
+
+	printPaths(subRoot->left, nodeList, count);
+
+	printPaths(subRoot->right, nodeList, count);
+
+
+}
+
+
 
 /**
  * Each node in a tree has a distance from the root node - the depth of that node,
@@ -113,5 +178,36 @@ template <typename T>
 int BinaryTree<T>::sumDistances() const
 {
     // your code here
-    return -1;
+
+    //cout << sumDistances(root, 0) << endl;
+    return sumDistances(root, -1);
 }
+
+
+
+template <typename T>
+int BinaryTree<T>::sumDistances(const Node * subRoot, int count) const
+{	
+	if(subRoot == NULL)
+	    return 0;
+	
+	
+	count++;
+
+	if(subRoot->left == NULL && subRoot->right == NULL)
+	    return count;
+	
+	
+	return count + sumDistances(subRoot->left, count) + sumDistances(subRoot->right, count);
+
+}
+
+
+
+
+
+
+
+
+
+

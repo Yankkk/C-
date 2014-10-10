@@ -155,6 +155,14 @@ class BinaryTree
          * @param subRoot The current node in the recursion
          */
         void printLeftToRight(const Node* subRoot) const;
+
+	void mirror(Node * & subRoot); 
+
+	bool isOrdered(const Node * subRoot) const;
+
+	void printPaths(const Node * subRoot, T * nodeList, int count) const;
+
+	int sumDistances(const Node * subRoot, int count) const;
         
         /**
          * Private helper function for the public insert function.
