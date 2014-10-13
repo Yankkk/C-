@@ -112,6 +112,7 @@ bool BinaryTree<T>::isOrdered() const
 template <typename T>
 bool BinaryTree<T>::isOrdered(const Node * subRoot) const
 {
+/**
         if(subRoot == NULL)
 	    return true;
 	
@@ -123,8 +124,51 @@ bool BinaryTree<T>::isOrdered(const Node * subRoot) const
 	
 
 	return isOrdered(subRoot->left) && isOrdered(subRoot->right);
+*/
+
+
+        if ((subRoot->left == NULL) and (subRoot->right == NULL)) return true;
+        if (subRoot->left != NULL and !isOrdered(subRoot->left)) return false;
+        if (subRoot->right != NULL and !isOrdered(subRoot->right)) return false;
+        if (subRoot->left != NULL and  subRoot->elem < getMax(subRoot->left)) return false;
+        if (subRoot->right != NULL and  getMin(subRoot->right) < subRoot->elem) return false;
+        return true;
 
 }
+
+template <typename T>
+T BinaryTree<T>::getMax(const Node * subRoot) const
+{
+	T max = subRoot->elem;
+	if(subRoot->left != NULL){
+	    if(getMax(subRoot->left) > max)
+		max = getMax(subRoot->left);
+	}
+	if(subRoot->right != NULL){
+	    if(getMax(subRoot->right) > max)
+		max = getMax(subRoot->right);
+	}
+
+	return max;
+}
+
+
+template <typename T>
+T BinaryTree<T>::getMin(const Node * subRoot) const
+{
+	T min = subRoot->elem;
+	if(subRoot->left != NULL){
+	    if(getMin(subRoot->left) < min)
+		min = getMin(subRoot->left);
+	}
+	if(subRoot->right != NULL){
+	    if(getMin(subRoot->right) < min)
+		min = getMin(subRoot->left);
+	}
+
+	return min;
+}
+
 
 /**
  * Prints out all the possible paths from the root of the tree to any leaf node.

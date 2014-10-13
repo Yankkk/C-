@@ -163,6 +163,11 @@ class BinaryTree
 	void printPaths(const Node * subRoot, T * nodeList, int count) const;
 
 	int sumDistances(const Node * subRoot, int count) const;
+
+	T getMin(const Node * subRoot) const;
+
+	T getMax(const Node * subRoot) const;
+
         
         /**
          * Private helper function for the public insert function.
