@@ -1,9 +1,9 @@
 svn: Working copy '/dev/shm/khattar2/cs225_current_checkout' locked
 svn: run 'svn cleanup' to remove locks (type 'svn help cleanup' for details)
 Monad Autograder
-Testing mp4 at 2014-10-14 05:40:07
+Testing mp4 at 2014-10-15 04:42:06
 
-"You look at their elbows, they actually have many good theoretical elbows." ~ Prof. Jiawei Han
+"Now let me erase this before you all copy it down." ~ Alexey Stepanov
 
 Setting up test environment...
 Compiling...
