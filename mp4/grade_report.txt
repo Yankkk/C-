@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp4 at 2014-10-16 04:47:26
+Testing mp4 at 2014-10-17 05:02:50
 
-"Find your points of interest, compute HOG features, bung them into a classifier, and see what you get." ~ D.A. Forsyth
+"Don't worry about people stealing your ideas. If your ideas are any good, you'll have to ram them down people's throats." ~ Howard H. Aiken
 
 Setting up test environment...
 Compiling...
