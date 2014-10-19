@@ -79,8 +79,10 @@ HuffmanTree::TreeNode * HuffmanTree::removeSmallest(
 	 */
 	TreeNode * smallest = NULL;
 	// your code!
-	if(singleQueue.empty() && mergeQueue.empty())
-	    return NULL;
+	if(singleQueue.empty() && mergeQueue.empty()){
+		smallest = NULL;
+	}
+	    
 	else if(singleQueue.empty()){
 	    smallest = mergeQueue.front();
 	    mergeQueue.pop();
