@@ -15,6 +15,7 @@ int main() {
    imgOut = halfTree.decompress();
    imgOut.writeToFile("outHalf.png");
 
+
    // now for the real tests
    Quadtree fullTree;
    fullTree.buildTree(imgIn, 256);
