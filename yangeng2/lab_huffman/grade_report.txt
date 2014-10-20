@@ -1,0 +1,28 @@
+Monad Autograder
+Testing lab_huffman at 2014-10-20 05:01:13
+
+"Anti-intellectualism has been a constant thread winding its way through our political and cultural life, nurtured by the false notion that democracy means that 'my ignorance is just as good as your knowledge.'" ~ Isaac Asimov
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+test_encoder_binary_4  . . . . [20 pts] - passed
+test_encoder_binary_8  . . . . [20 pts] - passed
+test_encoder_valgrind_2 (asan) [6 pts]  - passed
+test_encoder_writetree_4 . . . [2 pts]  - passed
+test_encoder_writetree_8 . . . [2 pts]  - passed
+test_decode_4  . . . . . . . . [20 pts] - passed
+test_decode_8  . . . . . . . . [20 pts] - passed
+test_decode_readtree_4 . . . . [2 pts]  - passed
+test_decode_readtree_8 . . . . [2 pts]  - passed
+test_the_works (asan)  . . . . [6 pts]  - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 100
+
