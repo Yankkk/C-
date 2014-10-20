@@ -83,7 +83,7 @@ class Quadtree
 	
 	QuadtreeNode* root;    // pointer to root of quadtree
 	
-	void clear(QuadtreeNode *  current); //helper function for destructor
+	void clear(QuadtreeNode * current); //helper function for destructor
 
 	void copy(const Quadtree & other); //copy helper function for Quadtree
 	
