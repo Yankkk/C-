@@ -68,11 +68,16 @@ const Quadtree & Quadtree::operator=(const Quadtree & rhs)
 */
 void Quadtree::copy(const Quadtree & other)
 {
+	/**
 	root = NULL;
 	size = other.size;
 	PNG image = other.decompress();
 
 	buildTree(image, other.size);	
+	*/
+	
+	root = copyNode(other.root);
+	size = other.size;
 }
 
 /**
@@ -106,7 +111,7 @@ Quadtree::~Quadtree()
 * this function is a helper function for destructor
 */
 
-void Quadtree::clear(QuadtreeNode *  current)
+void Quadtree::clear(QuadtreeNode * current)
 {
 	if(current != NULL) {
 		clear(current->nwChild);
@@ -137,9 +142,12 @@ void Quadtree::buildTree(PNG const & source, int resolution)
 void Quadtree::buildBranch(PNG const & source, int x, int y, int resolution, QuadtreeNode * current)
 {
 	if(resolution == 1){
-		current->element.red = source(x, y)->red;
-		current->element.green = source(x, y)->green;
-		current->element.blue = source(x, y)->blue;
+		current->neChild = NULL;
+		current->nwChild = NULL;
+		current->seChild = NULL;
+		current->swChild = NULL;
+		current->element = *source(x, y);
+		
 		//cout << "(" << x << ", " << y << ")" << endl;
 	}
 	else{
