@@ -12,7 +12,9 @@
 #include <iostream>
 #include <queue>
 #include <utility>
+#include <math.h>
 #include "quadtree.h"
+
 using std::cout;
 using std::endl;
 /**
@@ -245,7 +247,7 @@ RGBAPixel Quadtree::getPixel(int x, int y) const
 */
 RGBAPixel Quadtree::getPixel(int resolution, int x, int y, QuadtreeNode * current) const
 {
-	if(resolution == 1)
+	if(resolution == 1 || leaf(current))
 		return current->element;
 
 	else{
@@ -258,13 +260,9 @@ RGBAPixel Quadtree::getPixel(int resolution, int x, int y, QuadtreeNode * curren
 		else if(x >= resolution/2 && y < resolution/2){
 			return getPixel(resolution/2, x-resolution/2, y, current->neChild);
 		}
-		else if(x >= resolution/2 && y >= resolution/2){
+		else {
 			return getPixel(resolution/2, x-resolution/2, y-resolution/2, current->seChild);	
 		}
-		else{
-			return current->element;
-		}
-
 
 	}
 
@@ -316,7 +314,7 @@ PNG Quadtree::decompress() const
 
 void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, PNG & image) const
 {
-	if(resolution == 1){
+	if(resolution == 1 || leaf(current)){
 		*image(x, y) = current->element;
 	}
 	
@@ -335,17 +333,118 @@ void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, 
 */
 void Quadtree::clockwiseRotate()
 {
+	//clockwiseRotate(root);
 	return;
 }
 
+/**
+* this is a helper function for clockwiseRotate
+*/
+/**
+
+void Quadtree::clockwiseRotate(QuadtreeNode *  current)
+{
+	if(leaf(current)){
+		return;
+	
+	}
+	
+	else{
+		QuadtreeNode * temp = current->nwChild;
+		current->nwChild = current->swChild;
+		current->swChild = current->seChild;
+		current->seChild = current->neChild;
+		current->neChild = temp;
+		
+		clockwiseRotate(current->nwChild);
+		clockwiseRotate(current->swChild);
+		clockwiseRotate(current->seChild);
+		clockwiseRotate(current->neChild);
+		
+		
+		
+	
+	}
+
+
+}
+*/
 
 /**
 * this function compresses the image this Quadtree represents
 */
 void Quadtree::prune(int tolerance)
 {
+	//prune(tolerance, root);
 	return;
 }
+
+
+/**
+* this function is a helper function for prune
+*/
+
+/**
+void Quadtree::prune(int tolerance, QuadtreeNode * current)
+{
+	if(leaf(current->neChild)){
+		bool tol = inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
+															   && inTol(current, current->swChild, tolerance)
+															   && inTol(current, current->seChild, tolerance);
+		if(tol){
+			clear(current->nwChild);
+			clear(current->neChild);
+			clear(current->swChild);
+			clear(current->seChild);
+			
+		}
+	}
+	else{
+		prune(tolerance, current->neChild);
+		prune(tolerance, current->nwChild);
+		prune(tolerance, current->seChild);
+		prune(tolerance, current->swChild);
+		
+		bool tol = inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
+															   && inTol(current, current->swChild, tolerance)
+															   && inTol(current, current->seChild, tolerance);
+		
+		if(tol){
+			clear(current->nwChild);
+			clear(current->neChild);
+			clear(current->swChild);
+			clear(current->seChild);
+		
+		}
+	
+	}
+
+
+}
+*/
+
+/**
+* this function shows whether the difference of color of two nodes is within the tolerance
+*/
+
+/**
+bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance)
+{
+	int r = current->element.red;
+	int rr = child->element.red;
+	int g = current->element.green;
+	int gg = current->element.green;
+	int b = current->element.blue;
+	int bb = current->element.blue;
+	
+	int tempTol = pow(r-rr, 2) + pow(g-gg, 2) + pow(b-bb, 2);
+	
+	return tempTol<=tolerance;
+	
+	
+
+}
+*/
 
 /**
 * this function returns a count of the toal number of leaces the Quadtree would

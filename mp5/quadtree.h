@@ -98,6 +98,12 @@ class Quadtree
 	void buildBranch(PNG const & source, int x, int y, int resolution, QuadtreeNode * current); // helper function for buildTree
 	
 	void decompress(int x, int y, int resolution, QuadtreeNode * current, PNG & image) const; //helper function for decompress
+	
+	//void clockwiseRotate(QuadtreeNode *  current); // helper function for clockwiseRotate
+	
+	//bool inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance); // calculate whether with tolerance
+	
+	//void prune(int tolerance, QuadtreeNode * current); // helper function for prune
 
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/
