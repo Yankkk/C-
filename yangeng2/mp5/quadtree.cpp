@@ -260,8 +260,12 @@ PNG Quadtree::decompress() const
 
 void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, PNG & image) const
 {
+	if(resolution == 1){
+		*image(x, y) = current->element;
 	
-	if(leaf(current)){
+	}
+	
+	else if(leaf(current)){
 		for(int i= x; i < resolution + x; i ++){
 			for(int j = y; j < resolution + y; j ++){
 				*image(i, j) = current->element;
@@ -270,12 +274,7 @@ void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, 
 		}
 		
 	}
-	/**
-	if(resolution == 1){
-		*image(x, y) = current->element;
-	
-	}
-	*/
+
 	else{
 		decompress(x, y, resolution/2, current->nwChild, image);
 		decompress(x + resolution/2, y, resolution/2, current->neChild, image);
@@ -341,11 +340,11 @@ void Quadtree::prune(int tolerance)
 /**
 * this function is a helper function for prune
 */
-
 /**
-void Quadtree::prune(int tolerance, QuadtreeNode * current)
+
+void Quadtree::prune(int tolerance, QuadtreeNode * & current)
 {
-	if(current != NULL){
+	if(current != NULL && !leaf(current)){
 		bool tol = (inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
 					&& inTol(current, current->swChild, tolerance) && inTol(current, current->seChild, tolerance));
 		if(tol){
@@ -368,17 +367,17 @@ void Quadtree::prune(int tolerance, QuadtreeNode * current)
 
 
 }
-*/
 
+*/
 /**
 * this function shows whether the difference of color of two nodes is within the tolerance
 */
 
-/*
+/**
 bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const
 {
 	if(child == NULL)
-		return false;
+		return true;
 		
 	else{
 	
@@ -394,7 +393,7 @@ bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance
 	
 			int tempTol = pow(ri-rr,2) + pow(g-gg, 2) + pow(b-bb, 2);
 	
-			return tempTol<=tolerance;
+			return tempTol<tolerance;
 			}
 		
 		

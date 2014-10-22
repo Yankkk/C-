@@ -103,7 +103,7 @@ class Quadtree
 	
 	bool inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const; // calculate whether with tolerance
 	
-	void prune(int tolerance, QuadtreeNode * current); // helper function for prune
+	void prune(int tolerance, QuadtreeNode * & current); // helper function for prune
 
 	int pruneSize(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const; // helper function for pruneSize
 	/**** Functions added for testing/grading                ****/
