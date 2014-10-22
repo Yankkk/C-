@@ -83,7 +83,7 @@ class Quadtree
 	
 	QuadtreeNode* root;    // pointer to root of quadtree
 	
-	void clear(QuadtreeNode * current); //helper function for destructor
+	void clear(QuadtreeNode * & current); //helper function for destructor
 
 	void copy(const Quadtree & other); //copy helper function for Quadtree
 	
@@ -99,12 +99,13 @@ class Quadtree
 	
 	void decompress(int x, int y, int resolution, QuadtreeNode * current, PNG & image) const; //helper function for decompress
 	
-	//void clockwiseRotate(QuadtreeNode *  current); // helper function for clockwiseRotate
+	void clockwiseRotate(QuadtreeNode * current); // helper function for clockwiseRotate
 	
-	//bool inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance); // calculate whether with tolerance
+	bool inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const; // calculate whether with tolerance
 	
-	//void prune(int tolerance, QuadtreeNode * current); // helper function for prune
+	void prune(int tolerance, QuadtreeNode * current); // helper function for prune
 
+	int pruneSize(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const; // helper function for pruneSize
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/
 	#include "quadtree_given.h"

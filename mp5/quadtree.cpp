@@ -113,7 +113,7 @@ Quadtree::~Quadtree()
 * this function is a helper function for destructor
 */
 
-void Quadtree::clear(QuadtreeNode * current)
+void Quadtree::clear(QuadtreeNode * & current)
 {
 	if(current != NULL) {
 		clear(current->nwChild);
@@ -174,55 +174,7 @@ void Quadtree::buildBranch(PNG const & source, int x, int y, int resolution, Qua
 
 }
 
-/**
-void Quadtree::buildTree(PNG const & source, int resolution)
-{
-	
-	clear(root);
-	
-	std::queue<QuadtreeNode *> longQueue;
-	//queue<QuadtreeNode *> neQueue;
-	//queue<QuadtreeNode *> swQueue;
-	//queue<QuadtreeNode *> seQueue;
 
-	for(int i = 0; i < resolution; i=i+2){
-	    for(int j = 0; j < resolution; j=j+2){
-		QuadtreeNode * nwTemp = new QuadtreeNode(*source(i, j));
-		QuadtreeNode * neTemp = new QuadtreeNode(*source(i+1, j));
-		QuadtreeNode * swTemp = new QuadtreeNode(*source(i, j+1));
-		QuadtreeNode * seTemp = new QuadtreeNode(*source(i+1, j+1));
-		longQueue.push(nwTemp);
-		longQueue.push(neTemp);
-		longQueue.push(swTemp);
-		longQueue.push(seTemp);
-	    }
-	}
-
-	while(longQueue.size() > 1){
-		QuadtreeNode * internal = new QuadtreeNode();
-		internal->nwChild = longQueue.front();
-		longQueue.pop();
-		internal->neChild = longQueue.front();
-		longQueue.pop();
-		internal->swChild = longQueue.front();
-		longQueue.pop();
-		internal->seChild = longQueue.front();
-		longQueue.pop();
-
-		internal->element.red = (internal->nwChild->element.red + internal->neChild->element.red + internal->swChild->element.red + internal->seChild->element.red)/4;
-		internal->element.green = (internal->nwChild->element.green + internal->neChild->element.green + internal->swChild->element.green + internal->seChild->element.green)/4;
-		internal->element.blue = (internal->nwChild->element.blue + internal->neChild->element.blue + internal->swChild->element.blue + internal->seChild->element.blue)/4;
-		longQueue.push(internal);
-	}
-
-	root = longQueue.front();
-	longQueue.pop();
-	size = resolution;
-
-
-}
-
-*/
 
 
 /**
@@ -295,13 +247,7 @@ PNG Quadtree::decompress() const
 
 	else{
 		PNG image(size, size);
-		/**
-		for(int i = 0; i < size; i++){
-			for(int j = 0; j < size; j++){
-				*image(i, j) = getPixel(i, j);
-			}
-		}
-		*/
+		
 		decompress(0, 0, size, root, image);
 		return image;
 	}
@@ -314,10 +260,22 @@ PNG Quadtree::decompress() const
 
 void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, PNG & image) const
 {
-	if(resolution == 1 || leaf(current)){
-		*image(x, y) = current->element;
-	}
 	
+	if(leaf(current)){
+		for(int i= x; i < resolution + x; i ++){
+			for(int j = y; j < resolution + y; j ++){
+				*image(i, j) = current->element;
+			}
+		
+		}
+		
+	}
+	/**
+	if(resolution == 1){
+		*image(x, y) = current->element;
+	
+	}
+	*/
 	else{
 		decompress(x, y, resolution/2, current->nwChild, image);
 		decompress(x + resolution/2, y, resolution/2, current->neChild, image);
@@ -333,16 +291,16 @@ void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, 
 */
 void Quadtree::clockwiseRotate()
 {
-	//clockwiseRotate(root);
+	clockwiseRotate(root);
 	return;
 }
 
 /**
 * this is a helper function for clockwiseRotate
 */
-/**
 
-void Quadtree::clockwiseRotate(QuadtreeNode *  current)
+
+void Quadtree::clockwiseRotate(QuadtreeNode * current)
 {
 	if(leaf(current)){
 		return;
@@ -368,7 +326,7 @@ void Quadtree::clockwiseRotate(QuadtreeNode *  current)
 
 
 }
-*/
+
 
 /**
 * this function compresses the image this Quadtree represents
@@ -387,10 +345,9 @@ void Quadtree::prune(int tolerance)
 /**
 void Quadtree::prune(int tolerance, QuadtreeNode * current)
 {
-	if(leaf(current->neChild)){
-		bool tol = inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
-															   && inTol(current, current->swChild, tolerance)
-															   && inTol(current, current->seChild, tolerance);
+	if(current != NULL){
+		bool tol = (inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
+					&& inTol(current, current->swChild, tolerance) && inTol(current, current->seChild, tolerance));
 		if(tol){
 			clear(current->nwChild);
 			clear(current->neChild);
@@ -398,25 +355,15 @@ void Quadtree::prune(int tolerance, QuadtreeNode * current)
 			clear(current->seChild);
 			
 		}
-	}
-	else{
-		prune(tolerance, current->neChild);
-		prune(tolerance, current->nwChild);
-		prune(tolerance, current->seChild);
-		prune(tolerance, current->swChild);
 		
-		bool tol = inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
-															   && inTol(current, current->swChild, tolerance)
-															   && inTol(current, current->seChild, tolerance);
+		else{
+			prune(tolerance, current->neChild);
+			prune(tolerance, current->nwChild);
+			prune(tolerance, current->seChild);
+			prune(tolerance, current->swChild);
 		
-		if(tol){
-			clear(current->nwChild);
-			clear(current->neChild);
-			clear(current->swChild);
-			clear(current->seChild);
 		
 		}
-	
 	}
 
 
@@ -427,24 +374,42 @@ void Quadtree::prune(int tolerance, QuadtreeNode * current)
 * this function shows whether the difference of color of two nodes is within the tolerance
 */
 
-/**
-bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance)
+/*
+bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const
 {
-	int r = current->element.red;
-	int rr = child->element.red;
-	int g = current->element.green;
-	int gg = current->element.green;
-	int b = current->element.blue;
-	int bb = current->element.blue;
+	if(child == NULL)
+		return false;
+		
+	else{
 	
-	int tempTol = pow(r-rr, 2) + pow(g-gg, 2) + pow(b-bb, 2);
+		if(leaf(child)){
 	
-	return tempTol<=tolerance;
 	
+			int ri = current->element.red;
+			int rr = child->element.red;
+			int g = current->element.green;
+			int gg = current->element.green;
+			int b = current->element.blue;
+			int bb = current->element.blue;
+	
+			int tempTol = pow(ri-rr,2) + pow(g-gg, 2) + pow(b-bb, 2);
+	
+			return tempTol<=tolerance;
+			}
+		
+		
+		else{
+		
+			return (inTol(current, child->neChild, tolerance) && inTol(current, child->seChild, tolerance)
+				&& inTol(current, child->nwChild, tolerance) && inTol(current, child->swChild, tolerance));
+		
+			}
+		}	
+}
 	
 
-}
 */
+
 
 /**
 * this function returns a count of the toal number of leaces the Quadtree would
@@ -452,9 +417,41 @@ bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance
 */
 int Quadtree::pruneSize(int tolerance) const
 {
+	/**
+	return pruneSize(root, root->neChild, tolerance) + pruneSize(root, root->nwChild, tolerance)
+				+ pruneSize(root, root->seChild, tolerance) + pruneSize(root, root->swChild, tolerance);
+	*/		
 	return 0;
 
 }
+
+/**
+int Quadtree::pruneSize(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const
+{
+	if(child == NULL)
+		return 0;
+	else{
+		if(leaf(child->neChild)){
+			if(pruneSize(current, child, tolerance)){
+		
+				return 4;
+			}
+			else
+				return 0;
+			}
+		
+		else{
+		
+			return (inTol(current, child->neChild, tolerance) + inTol(current, child->seChild, tolerance)
+				+ inTol(current, child->nwChild, tolerance) + inTol(current, child->swChild, tolerance));
+		
+			}
+		}	
+	
+	
+
+}
+*/
 
 /**
 * This function calculates and returns the minmum tolerance necessary to 
