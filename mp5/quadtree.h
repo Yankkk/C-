@@ -105,7 +105,12 @@ class Quadtree
 	
 	void prune(int tolerance, QuadtreeNode * & current); // helper function for prune
 
-	int pruneSize(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const; // helper function for pruneSize
+	int pruned(QuadtreeNode * current, int tolerance) const; // helper function for pruneSize
+	
+	int leafCount(QuadtreeNode * current) const; // count the number of leaves in current
+	
+	
+	
 	/**** Functions added for testing/grading                ****/
 	/**** Do not remove this line or copy its contents here! ****/
 	#include "quadtree_given.h"

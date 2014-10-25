@@ -332,7 +332,7 @@ void Quadtree::clockwiseRotate(QuadtreeNode * current)
 */
 void Quadtree::prune(int tolerance)
 {
-	//prune(tolerance, root);
+	prune(tolerance, root);
 	return;
 }
 
@@ -340,13 +340,14 @@ void Quadtree::prune(int tolerance)
 /**
 * this function is a helper function for prune
 */
-/**
+
 
 void Quadtree::prune(int tolerance, QuadtreeNode * & current)
 {
 	if(current != NULL && !leaf(current)){
-		bool tol = (inTol(current, current->nwChild, tolerance) && inTol(current, current->neChild, tolerance)
-					&& inTol(current, current->swChild, tolerance) && inTol(current, current->seChild, tolerance));
+		
+		bool tol = inTol(current, current->neChild, tolerance) && inTol(current, current->nwChild, tolerance) && inTol(current, current->swChild, tolerance) && inTol(current, current->seChild, tolerance);
+		
 		if(tol){
 			clear(current->nwChild);
 			clear(current->neChild);
@@ -368,32 +369,30 @@ void Quadtree::prune(int tolerance, QuadtreeNode * & current)
 
 }
 
-*/
+
 /**
 * this function shows whether the difference of color of two nodes is within the tolerance
 */
 
-/**
+
 bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const
 {
-	if(child == NULL)
-		return true;
+	if(child == NULL || current == NULL)
+		return false;
 		
 	else{
 	
 		if(leaf(child)){
 	
 	
-			int ri = current->element.red;
-			int rr = child->element.red;
-			int g = current->element.green;
-			int gg = current->element.green;
-			int b = current->element.blue;
-			int bb = current->element.blue;
+			int r = current->element.red - child->element.red;
+			int g = current->element.green - child->element.green;
+			int b = current->element.blue - child->element.blue;
 	
-			int tempTol = pow(ri-rr,2) + pow(g-gg, 2) + pow(b-bb, 2);
+			int tempTol = r * r + g * g + b * b;
+			
 	
-			return tempTol<tolerance;
+			return tempTol <= tolerance;
 			}
 		
 		
@@ -407,7 +406,6 @@ bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance
 }
 	
 
-*/
 
 
 /**
@@ -416,48 +414,100 @@ bool Quadtree::inTol(QuadtreeNode * current, QuadtreeNode * child, int tolerance
 */
 int Quadtree::pruneSize(int tolerance) const
 {
-	/**
-	return pruneSize(root, root->neChild, tolerance) + pruneSize(root, root->nwChild, tolerance)
-				+ pruneSize(root, root->seChild, tolerance) + pruneSize(root, root->swChild, tolerance);
-	*/		
-	return 0;
-
+	if(root == NULL)
+		return 0;
+		
+	int count = size * size - pruned(root, tolerance); 
+	
+	return count;
 }
 
 /**
-int Quadtree::pruneSize(QuadtreeNode * current, QuadtreeNode * child, int tolerance) const
+* this function count the leaves need prune
+*/
+int Quadtree::pruned(QuadtreeNode * current, int tolerance) const
 {
-	if(child == NULL)
+	if(current == NULL){
 		return 0;
+	}
+	if(leaf(current))
+		return 0;
+		
+	bool tol = inTol(current, current->neChild, tolerance) && inTol(current, current->nwChild, tolerance) && inTol(current, current->swChild, tolerance) && inTol(current, current->seChild, tolerance);
+	if(tol){
+		return leafCount(current)-1;
+	}
+
+	
 	else{
-		if(leaf(child->neChild)){
-			if(pruneSize(current, child, tolerance)){
-		
-				return 4;
-			}
-			else
-				return 0;
-			}
-		
-		else{
-		
-			return (inTol(current, child->neChild, tolerance) + inTol(current, child->seChild, tolerance)
-				+ inTol(current, child->nwChild, tolerance) + inTol(current, child->swChild, tolerance));
-		
-			}
+		return pruned(current->neChild, tolerance) + pruned(current->nwChild, tolerance) + pruned(current->seChild, tolerance) + pruned(current->swChild, tolerance);
 		}	
 	
 	
 
 }
+
+/**
+* this function count the number of leaves in subtree of current
 */
+int Quadtree::leafCount(QuadtreeNode * current) const
+{
+	if(current == NULL)
+		return 0;
+	if(leaf(current))
+		return 1;
+	else{
+		return leafCount(current->nwChild) + leafCount(current->neChild) + leafCount(current->swChild) + leafCount(current->seChild);
+	
+	
+	}
+
+
+}
+
+
 
 /**
 * This function calculates and returns the minmum tolerance necessary to 
 * guarantee that upon pruning the tree, no more than numLeaves leaves in the
 * Quadtree
 */
+
+
 int Quadtree::idealPrune(int numLeaves) const
 {
-	return 0;
+	int min = 0;
+	int max = 255 * 255 * 3;
+	
+	
+	int count;
+	int mid;
+	
+	
+	while(min <= max){
+		mid = (min + max)/2;
+		
+		count = pruneSize(mid);
+		//std::cout << count << std::endl;
+		if(count == numLeaves){
+			while(pruneSize(mid-1) == numLeaves){
+				mid--;
+			}
+			return mid;
+		}
+			
+		else if(count > numLeaves)
+			min = mid + 1;
+		
+		else
+			max = mid - 1;
+		
+	
+	}
+	
+	return mid;
 }
+
+
+
+
