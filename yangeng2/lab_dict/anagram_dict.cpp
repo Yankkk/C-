@@ -33,12 +33,15 @@ AnagramDict::AnagramDict(const string& filename)
         while(getline(words, word)){
         	sorts = word;
         	std::sort(sorts.begin(), sorts.end());
+        	dict[sorts].push_back(word);
+        	/**
         	if(dict.count(sorts) <= 0){
         		dict.insert(std::pair<string, vector<string>>(sorts, {word}));
         	}
         	else{
         		dict.find(sorts)->second.push_back(word);
         	}
+        	*/
           }
         }
    
@@ -56,13 +59,15 @@ AnagramDict::AnagramDict(const vector< string >& words)
     	string temp = *it;
     	string sorts = temp;
     	std::sort(sorts.begin(), sorts.end());
+    	dict[sorts].push_back(temp);
+    	/**
     	if(dict.count(sorts) <= 0 ){
     		dict.insert(std::pair<string, vector<string>>(sorts, {temp}));
     	}
     	else{
     		dict.find(sorts)->second.push_back(temp);
     	}
-    	
+    	*/
     
     }
 }
