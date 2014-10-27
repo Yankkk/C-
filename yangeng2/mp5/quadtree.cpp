@@ -290,7 +290,9 @@ void Quadtree::decompress(int x, int y, int resolution, QuadtreeNode * current, 
 */
 void Quadtree::clockwiseRotate()
 {
-	clockwiseRotate(root);
+	if(root != NULL){
+		clockwiseRotate(root);
+	}
 	return;
 }
 
