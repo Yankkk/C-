@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-10-27 05:00:45
+Testing mp5 at 2014-10-28 05:08:09
 
-"The slogan of Subversion for a while was "CVS done right", or something like that, and if you start with that kind of slogan, there's nowhere you can go. There is no way to do CVS right." ~ Linus Torvalds
+"(reading a password) Uppercase 0... [...] Lowercase 0..." ~ Sean Massung
 
 Setting up test environment...
 Compiling...
@@ -35,7 +35,7 @@ test_decompress_unpruned_4 [1 pts] - passed
 time_getPixel_logn . . . . [4 pts] - passed
 time_decompress_n (asan) . [4 pts] - passed
 valgrind_big3 (asan) . . . [4 pts] - passed
-test_clockwiseRotate_1 . . [1 pts] - FAILED
+test_clockwiseRotate_1 . . [1 pts] - passed
 test_clockwiseRotate_2 . . [1 pts] - passed
 test_clockwiseRotate_3 . . [2 pts] - passed
 test_clockwiseRotate_4 . . [2 pts] - passed
@@ -63,5 +63,5 @@ test_const_correctness . . [4 pts] - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 99
+TOTAL SCORE: 100
 
