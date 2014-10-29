@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-10-28 05:08:09
+Testing mp5 at 2014-10-29 05:19:16
 
-"(reading a password) Uppercase 0... [...] Lowercase 0..." ~ Sean Massung
+"If you're not failing every now and again, it's a sign you're not doing anything very innovative." ~ Woody Allen
 
 Setting up test environment...
 Compiling...
