@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp5 at 2014-10-29 05:19:16
+Testing mp5 at 2014-10-30 04:39:07
 
-"If you're not failing every now and again, it's a sign you're not doing anything very innovative." ~ Woody Allen
+"It is practically impossible to teach good programming to students that have had a prior exposure to BASIC: as potential programmers they are mentally mutilated beyond hope of regeneration." ~ Edsger Dijkstra
 
 Setting up test environment...
 Compiling...
