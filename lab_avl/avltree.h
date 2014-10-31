@@ -153,6 +153,7 @@ class AVLTree
          */
 		int heightOrNeg1(const Node* node) const;
 
+		
 		/**
 		 * Helper function for operator= and cctor.
 		 * @param subRoot The current node in the recursion
