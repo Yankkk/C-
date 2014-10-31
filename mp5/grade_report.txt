@@ -1,9 +1,8 @@
-svn: Working copy '/dev/shm/khattar2/cs225_current_checkout' locked
-svn: run 'svn cleanup' to remove locks (type 'svn help cleanup' for details)
+Grading revision r41620 by khattar2, dated 2014-10-30 04:58:38.000172429 -0500 CDT
 Monad Autograder
-Testing mp5 at 2014-10-31 13:04:11
+Testing mp5 at 2014-10-31 11:39:43
 
-"The most amazing achievement of the computer software industry is its continuing cancellation of the steady and staggering gains made by the computer hardware industry." ~ Henry Petroski
+"In the absence of our leader, I'm assuming control." ~ Kyle Johnson
 
 Setting up test environment...
 Compiling...
@@ -12,7 +11,7 @@ Compiling...
 
 Running tests...
 ================================================================
-test_default_ctor  . . . . [1 pts] - FAILED
+test_default_ctor  . . . . [1 pts] - passed
 test_ctor_1  . . . . . . . [1 pts] - passed
 test_ctor_2  . . . . . . . [2 pts] - passed
 test_buildTree_1 . . . . . [2 pts] - passed
@@ -65,5 +64,5 @@ test_const_correctness . . [4 pts] - passed
 
 Total score...
 ================================================================
-TOTAL SCORE: 99
+TOTAL SCORE: 100
 
