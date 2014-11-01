@@ -1,8 +1,7 @@
-Grading revision r41620 by khattar2, dated 2014-10-30 04:58:38.000172429 -0500 CDT
 Monad Autograder
-Testing mp5 at 2014-10-31 11:39:43
+Testing mp5 at 2014-11-01 03:45:01
 
-"In the absence of our leader, I'm assuming control." ~ Kyle Johnson
+"I think there is a world market for maybe five computers." ~ Thomas Watson, IBM, 1943
 
 Setting up test environment...
 Compiling...
