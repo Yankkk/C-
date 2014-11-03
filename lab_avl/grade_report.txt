@@ -1,7 +1,7 @@
 Monad Autograder
-Testing lab_avl at 2014-11-03 02:26:48
+Testing lab_avl at 2014-11-03 13:01:35
 
-"Simplicity and elegance are unpopular because they require hard work and discipline to achieve and education to be appreciated." ~ Edsger Dijkstra
+"The sooner you start to code, the longer the program will take." ~ R. Carlson
 
 Setting up test environment...
 Compiling...
