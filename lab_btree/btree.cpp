@@ -173,12 +173,11 @@ void BTree<K, V>::split_child(BTreeNode* parent, size_t child_idx)
  	
  	
  		child->elements.erase(mid_elem_itr, child->elements.end());
- 		child->elements.reserve(order+1);
+ 		//child->elements.reserve(order+1);
  			
  		child->children.erase(mid_child_itr, child->children.end());
- 		child->children.reserve(order + 2);
-	
-		
+ 		//child->children.reserve(order + 2);
+			
  		parent->children.insert(child_itr, new_right);
  	
 }
