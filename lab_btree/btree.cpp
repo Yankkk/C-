@@ -166,6 +166,7 @@ void BTree<K, V>::split_child(BTreeNode* parent, size_t child_idx)
  	*elem_itr = *mid_elem_itr;
  	
  	
+ 	
  	for(size_t i = mid_elem_idx+1; i < child->elements.size(); i++){
  		DataPair elem = new_left->elements.at(i);
  		new_right->elements.push_back(elem);
@@ -214,19 +215,13 @@ void BTree<K, V>::insert(BTreeNode* subroot, const DataPair& pair)
     	return;
     	
     size_t first_larger_idx = insertion_idx(subroot->elements, pair);
-    std::cout << first_larger_idx << std::endl;
+    //std::cout << first_larger_idx << std::endl;
     
-    if(first_larger_idx >=0 && first_larger_idx < order-1 && subroot->elements[first_larger_idx] == pair)
+    if(subroot->elements[first_larger_idx] == pair)
     	return;
     
     if(subroot->is_leaf){
-    	size_t s = subroot->elements.size();
-    	for(size_t i = s; i >= first_larger_idx; i--){
-    		subroot->elements[i] = subroot->elements[i-1];
-    		
-    		//subroot->elements.insert(subroot->elements.begin() + first_larger_idx, pair);
-    	}
-    	subroot->elements[first_larger_idx] = pair;
+    	subroot->elements.insert(subroot->elements.begin() + first_larger_idx, pair);
     }
     else{
     	insert(subroot->children[first_larger_idx], pair);

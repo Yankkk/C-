@@ -360,12 +360,10 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
    
     if(elements.empty()){
     	return 0;
-    	//std::cout<< "aa" << std::endl;
     	}
     	
     size_t s = elements.size();
-    //std::cout<< "ca" << s << std::endl;
-    
+   
     if(val < elements[0]){
     	return 0;
     	
@@ -375,7 +373,7 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
 		}
 		
     size_t max = s-1;
-    //std::cout<< max << std::endl;
+    
     size_t min = 0;
     size_t mid = 0;
    
@@ -399,7 +397,10 @@ size_t insertion_idx(const std::vector< T >& elements, const C& val)
     
     	}
     }
-    return mid;
+    if(val < elements[mid])
+    	return mid;
+    
+    return mid +1 ;
 }
 
 #include "btree_given.cpp"
