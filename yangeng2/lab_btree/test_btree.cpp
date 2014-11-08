@@ -138,8 +138,8 @@ int main(int argc, char* argv[])
     if(argc == 1)
     {
         small_btree_small_order();
-        large_btree_small_order();
-        huge_btree_large_order();
+       // large_btree_small_order();
+        //huge_btree_large_order();
     }
     else if(argc != 3)
     {
