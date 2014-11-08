@@ -240,6 +240,11 @@ class KDTree
         /**
          * @todo Add your helper functions here.
          */
+         void quickselect(vector<Point<Dim> > & newPoints, int min, int max, int curDim);
+         void select(vector<Point<Dim> > & newPoints, int left, int right, int mid, int curDim);
+         int partition(vector<Point<Dim> > & newPoints, int low, int high, int pivot, int curDim);
+         Point<Dim> findnear(const Point<Dim> & query, int min, int max, int curDim) const;
+         
 };
 
 #include "kdtree.cpp"
