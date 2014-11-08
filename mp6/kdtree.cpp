@@ -51,9 +51,8 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 		points.resize(newPoints.size());
 		for(size_t i = 0; i < points.size(); i++)
 			points[i] = newPoints[i];
-		int max = points.size() - 1;
-		int min = 0;
-		quickselect(points, min, max, 0);
+		
+		quickselect(points, 0, points.size()-1, 0);
 	}
 }
 
@@ -145,7 +144,7 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 template<int Dim>
 Point<Dim> KDTree<Dim>::findnear(const Point<Dim> & query, int min, int max, int curDim) const
 {
-int mid = (min + max)/2;
+	int mid = (min + max)/2;
 	bool inLeft = false;
 	Point<Dim> currentBest = points[mid];
 
