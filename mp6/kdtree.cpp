@@ -145,50 +145,52 @@ template<int Dim>
 Point<Dim> KDTree<Dim>::findnear(const Point<Dim> & query, int min, int max, int curDim) const
 {
 	int mid = (min + max)/2;
-	bool inLeft = false;
-	Point<Dim> currentBest = points[mid];
+	bool left = false;
+	Point<Dim> best = points[mid];
 
 	if(smallerDimVal(query, points[mid], curDim))
 	{
-		inLeft = true;
+		left = true;
 		if(min == mid)
-			currentBest = points[mid]; 
+			best = points[mid]; 
 		else
-			currentBest = findnear(query, min, mid - 1, (curDim + 1) % Dim);
+			best = findnear(query, min, mid - 1, (curDim + 1) % Dim);
 	}
 
 	else
 	{
 		if(max == mid)
-			currentBest = points[mid]; 
+			best = points[mid]; 
 
 		else
-			currentBest = findnear(query, mid + 1, max, (curDim + 1) % Dim);
+			best = findnear(query, mid + 1, max, (curDim + 1) % Dim);
 	}
 
 	Point<Dim> potential = points[mid];
 
-	if(shouldReplace(query, currentBest, potential))
-			currentBest = potential;
+	if(shouldReplace(query, best, potential))
+			best = potential;
 
-	int distance = 0;
+	int dis = 0;
 
 	for(int i = 0; i < Dim; i++)
-		distance += pow(currentBest[i] - query[i], 2);
+		dis += pow(best[i] - query[i], 2);
 				
 	int radius = 0;
 	radius += pow((query[curDim] - points[mid][curDim]), 2);
 
-	if((radius <= distance) && (inLeft) && (max > mid))
-			potential = findnear(query, mid + 1, max, (curDim + 1) % Dim);
-
-	else if((radius <= distance) && (!inLeft) && (min < mid))
+	
+	if((radius <= dis) && (!left) && (min < mid))
 			potential = findnear(query,min, mid - 1, (curDim + 1) % Dim);
+			
+	else if((radius <= dis) && (left) && (max > mid))
+		potential = findnear(query, mid + 1, max, (curDim + 1) % Dim);
 
-	if(shouldReplace(query, currentBest, potential))
-			currentBest = potential;
 
-	return currentBest;
+	if(shouldReplace(query, best, potential))
+			best = potential;
+
+	return best;
 
 
 
