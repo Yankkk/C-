@@ -1,0 +1,21 @@
+Monad Autograder
+Testing lab_btree at 2014-11-10 02:07:28
+
+"I think I may have made a student cry during my exam..." ~ Joe DiFebo
+
+Setting up test environment...
+Compiling...
+================================================================
+make: execvp: clang++: Stale file handle
+make: *** [proxy.o] Error 127
+
+
+Running tests...
+================================================================
+Could not execute test cases
+
+
+Total score...
+================================================================
+TOTAL SCORE: 0
+
