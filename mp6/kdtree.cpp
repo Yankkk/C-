@@ -4,6 +4,9 @@
  */
 #include <math.h> 
 
+/**
+* find smaller dimention value
+*/
 template<int Dim>
 bool KDTree<Dim>::smallerDimVal(const Point<Dim> & first, const Point<Dim> & second, int curDim) const
 {
@@ -17,7 +20,9 @@ bool KDTree<Dim>::smallerDimVal(const Point<Dim> & first, const Point<Dim> & sec
     return false;
 }
 
-
+/**
+* deternmine whether potential should replace currentBest
+*/
 template<int Dim>
 bool KDTree<Dim>::shouldReplace(const Point<Dim> & target, const Point<Dim> & currentBest, const Point<Dim> & potential) const
 {
@@ -40,6 +45,9 @@ bool KDTree<Dim>::shouldReplace(const Point<Dim> & target, const Point<Dim> & cu
    
 }
 
+/**
+* constructor of KDTree
+*/
 template<int Dim>
 KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 {
@@ -56,6 +64,9 @@ KDTree<Dim>::KDTree(const vector< Point<Dim> > & newPoints)
 	}
 }
 
+/**
+* quickSelect function for KDTree
+*/
 template<int Dim>
 void KDTree<Dim>::quickselect(vector<Point<Dim> > & newPoints, int min, int max, int curDim)
 {
@@ -70,6 +81,10 @@ void KDTree<Dim>::quickselect(vector<Point<Dim> > & newPoints, int min, int max,
 	}
 
 }
+
+/**
+* select function for quickSelect
+*/
 template<int Dim>
 void KDTree<Dim>::select(vector<Point<Dim> > & newPoints, int left, int right, int mid, int curDim)
 {
@@ -94,7 +109,9 @@ void KDTree<Dim>::select(vector<Point<Dim> > & newPoints, int left, int right, i
 
 }
 
-
+/**
+* partition function for quickSelect
+*/
 template<int Dim>
 int KDTree<Dim>::partition(vector<Point<Dim> > & newPoints, int left, int right, int pivot, int curDim)
 {
@@ -129,7 +146,9 @@ int KDTree<Dim>::partition(vector<Point<Dim> > & newPoints, int left, int right,
 
 
 
-
+/**
+* find the nearest neighbor for a given Point
+*/
 template<int Dim>
 Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
 {
@@ -141,12 +160,17 @@ Point<Dim> KDTree<Dim>::findNearestNeighbor(const Point<Dim> & query) const
    return findnear(query,0, points.size()-1,0);
 }
 
+/**
+* Helper function for findNearestNeighbor
+*/
 template<int Dim>
 Point<Dim> KDTree<Dim>::findnear(const Point<Dim> & query, int min, int max, int curDim) const
 {
+	
 	int mid = (min + max)/2;
-	bool left = false;
 	Point<Dim> best = points[mid];
+	bool left = false;
+	
 
 	if(smallerDimVal(query, points[mid], curDim))
 	{
