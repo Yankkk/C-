@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-11-13 03:48:25
+Testing mp6 at 2014-11-14 01:35:46
 
-"There's an old story about the person who wished his computer were as easy to use as his telephone. That wish has come true, since I no longer know how to use my telephone." ~ Bjarne Stroustrup
+"It always takes longer than you expect, even when you take into account Hofstadter's Law." ~ Hofstadter's Law
 
 Setting up test environment...
 Compiling...
