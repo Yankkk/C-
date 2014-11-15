@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-11-14 01:35:46
+Testing mp6 at 2014-11-15 02:32:14
 
-"It always takes longer than you expect, even when you take into account Hofstadter's Law." ~ Hofstadter's Law
+"Computers are like Old Testament gods; lots of rules and no mercy." ~ Joseph Campbell
 
 Setting up test environment...
 Compiling...
