@@ -1,7 +1,7 @@
 Monad Autograder
-Testing mp6 at 2014-11-16 02:15:08
+Testing mp6 at 2014-11-17 02:16:10
 
-"It's like comparing a small apple with a medium-sized apple." ~ Jason Cho
+"Find your points of interest, compute HOG features, bung them into a classifier, and see what you get." ~ D.A. Forsyth
 
 Setting up test environment...
 Compiling...
