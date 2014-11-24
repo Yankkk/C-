@@ -1,13 +1,19 @@
 
 #include "dsets.h"
 
+/**
+* this function add num elements to the sets
+*/
 void DisjointSets::addelements(int num)
 {
 	for(int i = 0; i < num; i++){
 		set.push_back(-1);
 	}
 }	
-				
+
+/**
+* this function find the elem, use path compression
+*/			
 int DisjointSets::find(int elem)
 {
 	if(set[elem] < 0)
@@ -16,6 +22,9 @@ int DisjointSets::find(int elem)
 		return set[elem] = find(set[elem]);
 }
 
+/**
+* this function use union by size to union two sets
+*/
 void DisjointSets::setunion	(int a, int	b)
 {
 	int root1 = find(a);
