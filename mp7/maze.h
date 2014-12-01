@@ -32,13 +32,14 @@ class SquareMaze
 			public :
 				bool right;
 				bool down;
+				cell();
 			
 		};
 		int Width;
 		int Height;
 		vector<cell> maze;
 		
-		void distance(int x, int y, vector< vector<int> > collection); // helper function for solveMaze
+	
 
 
 
