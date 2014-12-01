@@ -3,8 +3,18 @@
 #include <stdlib.h>
 #include <time.h>
 #include "maze.h"
+#include <stack>
+#include <algorithm>
+#include <map>
 
-
+/**
+* This is the constructor for cell class
+*/
+SquareMaze::cell::cell()
+{
+	right = true;
+	down = true;
+}
 
 /**
 * this function makes a new SquareMaze of the given height and width
@@ -24,8 +34,7 @@ void SquareMaze::makeMaze(int width, int height)
 	maze.resize(Width * Height);
 	for(int i = 0; i < Width * Height; i++){
 		cell c;
-		c.right = true;
-		c.down = true;
+		
 		maze.push_back(c);
 	}
 	
@@ -34,10 +43,12 @@ void SquareMaze::makeMaze(int width, int height)
 	
 	srand (time(NULL));
 	int wallRemoved = 0;
-	while(wallRemoved < Height * Width -1){
-		int ranIndex = rand() % (Width * Height);
+	int ranIndex = 0;
+	while(wallRemoved != Height * Width -1){
+	
 		int root1 = set.find(ranIndex);
 		int root2;
+		//std::cout << ranIndex <<std::endl;
 		if(ranIndex != Width * Height - 1){
 			if(ranIndex >= (Height-1) * Width && ranIndex < Height * Width){
 				root2 = set.find(ranIndex + 1);
@@ -75,8 +86,10 @@ void SquareMaze::makeMaze(int width, int height)
 				
 				}
 			}
-		
+			
 		}
+		ranIndex = rand() % (Width * Height);
+			//std::cout << ranIndex <<std::endl;
 		
 	}
 
@@ -139,68 +152,96 @@ void SquareMaze::setWall(int x, int y, int dir, bool exists)
 */
 vector<int> SquareMaze::solveMaze()
 {
-	vector< vector<int> > result;
+	vector<int> temp;
+	stack<int> save;
+	/**
+	bool processed[Width][Height];
+	for(int i = 0; i < Width; i ++){
+		for(int j = 0; j < Height; j++){
+			processed[i][j] = false;
+		}
+	}
+	*/
+	vector<bool> processed;
+	processed.resize(Height*Width);
+	for(int i = 0; i < Height*Width; i++)
+		processed[i] = false;
+		
+	vector<pair<int, int>> track;
+	track.resize(Width * Height);
+	int x = 0;
+	int y = 0;
 	
-	distance(0, 0, result);
+	save.push(0);
+	processed[0] = true;
+	track[0] = make_pair(-1,1);
 	
-	size_t max = result[0].size();
-	int index = 0;
+	while(!save.empty()){
+		int value = save.top();
+		x = value % Width;
+		y = value / Width;
+		int pos = x + y*Width;
+		save.pop();
+		if(canTravel(x, y, 0) && !processed[pos+1]){
+			save.push(x+1+y*Width);
+			processed[pos+1] = true;
+			track[x+1+y*Width] = make_pair(x+y*Width,track[x+y*Width].second + 1);
+		}
+		if(canTravel(x, y, 1) && !processed[pos+Width]){
+			save.push(x+(y+1)*Width);
+			processed[pos+Width] = true;
+			track[x+(y+1)*Width] = make_pair(x+y*Width,track[x+y*Width].second+1);
+		}
+		if(canTravel(x, y, 2) && !processed[pos-1]){
+			save.push(x-1+y*Width);
+			processed[pos-1] = true;
+			track[x-1+y*Width] = make_pair(x+y*Width, track[x+y*Width].second+1);
+		}
+		if(canTravel(x, y ,3) && !processed[pos-Width]){
+			save.push(x+(y-1)*Width);
+			processed[pos-Width] = true;
+			track[x+(y-1)*Width] = make_pair(x+y*Width, track[x+y*Width].second+1);
+		
+		}
+	
+	
+	}
+	
+	int max = 0;
+	int position = 0;
 	for(int i = 0; i < Width; i++){
-		if(result[i].size() > max){
-			max = result[i].size();
-			index = i;
+		if(max < track[(Height-1)*Width + i].second){
+			max = track[(Height-1)*Width + i].second;
+			position = (Height-1)*Width + i;
 		}
 	
-	} 
+	}
 	
-	return result[index];
-
-}
-
-/**
-* this is the helper function for solveMaze
-*/
-void SquareMaze::distance(int x, int y, vector< vector<int> > collection)
-{	
-
+	while(position != -1){
+		temp.push_back(position);
+		position = track[position].first;
+	
+	
+	}
+	
 	vector<int> result;
-	if(x < 0 || y < 0 || x >= Width || y >= Height)
-		return;
-		 
-	bool stop = (!canTravel(x, y, 0)) && (!canTravel(x, y, 1)) && (!canTravel(x, y, 2))
-					&& (!canTravel(x, y, 3));
-	if(stop){
-		if(y == Height -1){
-			collection[x] = result;
-			return;
-		}
-	}
-	else{
-		if(canTravel(x, y, 0)){
-			result.push_back(0);
-			distance(x+1, y, collection);
-			result.pop_back();
-		}
-		if(canTravel(x, y, 1)){
-			result.push_back(1);
-			distance(x, y+1, collection);
-			result.pop_back();
-		}
-		if(canTravel(x, y, 2)){
+	reverse(temp.begin(), temp.end());
+	for(size_t i = 0; i < temp.size(); i++){
+		if(temp[i]-temp[i+1] == 1)
 			result.push_back(2);
-			distance(x-1, y, collection);
-			result.pop_back();
-		}
-		if(canTravel(x, y, 3)){
+		else if(temp[i] - temp[i+1] == -1)
+			result.push_back(0);
+		else if(temp[i] - temp[i+1] == Width)
 			result.push_back(3);
-			distance(x, y-1, collection);
-			result.pop_back();
-		}
-		else{
-			return;
-		}
+		else if(temp[i] - temp[i+1] == -Width)
+			result.push_back(1);
+	
 	}
+	return result;
+
 }
+
+
 
 
 /**
@@ -208,8 +249,42 @@ void SquareMaze::distance(int x, int y, vector< vector<int> > collection)
 */
 PNG * SquareMaze::drawMaze()const
 {
-
-	return new PNG();
+	PNG * image = new PNG();
+	image->resize(Width*10+1, Height*10+1);
+	for(int i = 10; i < Width*10+1; i++){
+		(*image)(i,0)->red = 0;
+		(*image)(i,0)->green = 0;
+		(*image)(i,0)->blue = 0;
+	}
+	for(int j = 0; j < Height*10+1; j++){
+		(*image)(0,j)->red = 0;
+		(*image)(0,j)->green = 0;
+		(*image)(0,j)->blue = 0;
+	
+	}
+	
+	for(int i = 0; i < Width; i++){
+		for(int j = 0; j < Height; j++){
+			if(maze[j*Width+i].down){
+				for(int k = 0; k <= 10; k++){
+					(*image)(i*10+k, (j+1)*10)->red = 0;
+					(*image)(i*10+k, (j+1)*10)->green = 0;
+					(*image)(i*10+k, (j+1)*10)->blue = 0;
+				}
+			
+			}
+			if(maze[j*Width+i].right){
+				for(int k = 0; k <= 10; k++){
+					(*image)((i+1)*10, j*10+k)->red = 0;
+					(*image)((i+1)*10, j*10+k)->green = 0;
+					(*image)((i+1)*10, j*10+k)->blue = 0;
+				}
+			
+			}
+		
+		}
+	}
+	return image;
 }
 
 /**
@@ -218,6 +293,54 @@ PNG * SquareMaze::drawMaze()const
 */
 PNG * SquareMaze::drawMazeWithSolution()
 {
-
-	return new PNG();
+	PNG * image;
+	image = drawMaze();
+	vector<int> solution = solveMaze();
+	int x = 5;
+	int y = 5;
+	for(size_t i = 0; i < solution.size(); i++){
+		if(solution[i] == 0){
+			for(int k = 0; k <= 10; k++){
+				(*image)(x+k, y)->red = 255;
+				(*image)(x+k, y)->green = 0;
+				(*image)(x+k, y)->blue = 0;
+			}
+			x = x+10;
+		}
+		else if(solution[i] == 1){
+			for(int k = 0; k <= 10; k++){
+				(*image)(x, y+k)->red = 255;
+				(*image)(x, y+k)->green = 0;
+				(*image)(x, y+k)->blue = 0;
+			}
+			y = y+10;
+		
+		}
+		else if(solution[i] == 2){
+			for(int k = 0; k <= 10; k++){
+				(*image)(x-k, y)->red = 255;
+				(*image)(x-k, y)->green = 0;
+				(*image)(x-k, y)->blue = 0;
+			}
+			x = x-10;
+		
+		}
+		else if(solution[i]==3){
+			for(int k = 0; k <= 10; k++){
+				(*image)(x, y-k)->red = 255;
+				(*image)(x, y-k)->green = 0;
+				(*image)(x, y-k)->blue = 0;
+			}
+			y=y-10;
+		
+		}
+	
+	}
+	for(int i = -4; i <= 4 ; i++){
+		(*image)(x+i, y+5)->red = 255;
+		(*image)(x+i, y+5)->green = 255;
+		(*image)(x+i, y+5)->blue = 255;
+	
+	}
+	return image;
 }
