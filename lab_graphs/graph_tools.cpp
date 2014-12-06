@@ -6,6 +6,7 @@
  */
 
 #include "graph_tools.h"
+#include <map>
 
 /**
  * Returns the shortest distance (in edges) between the Vertices
@@ -35,10 +36,10 @@ int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
 	//vector<Vertex> result;
 	vector<Vertex> v = graph.getVertices();
 	
-	for(int i = 0; i < v.size(); i++){
+	for(size_t i = 0; i < v.size(); i++){
 		graph.setVertexLabel(v[i], "UNEXPLORED");	
 		vector<Vertex> temp = graph.getAdjacent(v[i]);
-		for(int j = 0; j < temp.size(); j++){
+		for(size_t j = 0; j < temp.size(); j++){
 			graph.setEdgeLabel(v[i], temp[j], "UNEXPLORED");
 		}
 	}
@@ -51,7 +52,7 @@ int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
 		Vertex x = q.front();
 		q.pop();
 		vector<Vertex> adj = graph.getAdjacent(x);
-		for(int i = 0; i < adj.size(); i++){
+		for(size_t i = 0; i < adj.size(); i++){
 			if(graph.getVertexLabel(adj[i]) == "UNEXPLORED"){
 				graph.setEdgeLabel(x, adj[i], "DISCOVERY");
 				graph.setVertexLabel(adj[i], "VISITED");
@@ -71,7 +72,7 @@ int GraphTools::findShortestPath(Graph & graph, Vertex start, Vertex end)
 					Vertex x = r.front();
 					r.pop();
 					vector<Vertex> a = graph.getAdjacent(x);
-					for(int i = 0; i < a.size(); i++){
+					for(size_t i = 0; i < a.size(); i++){
 						if(graph.getEdgeLabel(x, a[i]) == "DISCOVERY"){
 							graph.setEdgeLabel(x, a[i], "MINPATH");
 							min ++;
@@ -111,10 +112,10 @@ int GraphTools::findMinWeight(Graph & graph)
 	queue<Vertex> q;
 	vector<Vertex> v = graph.getVertices();
 	
-	for(int i = 0; i < v.size(); i++){
+	for(size_t i = 0; i < v.size(); i++){
 		graph.setVertexLabel(v[i], "UNEXPLORED");	
 		vector<Vertex> temp = graph.getAdjacent(v[i]);
-		for(int j = 0; j < temp.size(); j++){
+		for(size_t j = 0; j < temp.size(); j++){
 			graph.setEdgeLabel(v[i], temp[j], "UNEXPLORED");
 		}
 	}
@@ -135,7 +136,7 @@ int GraphTools::findMinWeight(Graph & graph)
 		Vertex x = q.front();
 		q.pop();
 		vector<Vertex> adj = graph.getAdjacent(x);
-		for(int i = 0; i < adj.size(); i++){
+		for(size_t i = 0; i < adj.size(); i++){
 			if(graph.getVertexLabel(adj[i]) == "UNEXPLORED"){
 				graph.setEdgeLabel(x, adj[i], "DISCOVERY");
 				graph.setVertexLabel(adj[i], "VISITED");
@@ -177,5 +178,21 @@ int GraphTools::findMinWeight(Graph & graph)
  */
 void GraphTools::findMST(Graph & graph)
 {
-
+	vector<Edge> e = graph.getEdges();
+	std::sort(e.begin(), e.end());
+	
+	vector<Vertex> v = graph.getVertices();
+	std::map<Vertex, int> vertex;
+	for(size_t i = 0; i < v.size(); i++){
+		vertex[v[i]] = i;
+	}
+	DisjointSets set;
+	set.addelements(v.size());
+	
+	for(size_t i = 0; i < e.size(); i ++){
+		if(set.find(vertex[e[i].source]) != set.find(vertex[e[i].dest])){
+			set.setunion(vertex[e[i].source], vertex[e[i].dest]);
+			graph.setEdgeLabel(e[i].source, e[i].dest, "MST");	
+		}
+	}
 }
