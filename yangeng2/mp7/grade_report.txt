@@ -1,7 +1,9 @@
+svn: Working copy '/dev/shm/225/cs225_current_checkout' locked
+svn: run 'svn cleanup' to remove locks (type 'svn help cleanup' for details)
 Monad Autograder
-Testing mp7 at 2014-12-07 01:42:49
+Testing mp7 at 2014-12-08 01:55:01
 
-"Now let me erase this before you all copy it down." ~ Alexey Stepanov
+"If you're not failing every now and again, it's a sign you're not doing anything very innovative." ~ Woody Allen
 
 Setting up test environment...
 Compiling...
