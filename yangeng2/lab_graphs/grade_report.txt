@@ -1,0 +1,46 @@
+svn: Working copy '/dev/shm/225/cs225_current_checkout' locked
+svn: run 'svn cleanup' to remove locks (type 'svn help cleanup' for details)
+Monad Autograder
+Testing lab_graphs at 2014-12-08 01:56:32
+
+"The cheapest, fastest, and most reliable components of a computer system are those that aren't there." ~ Gordon Bell
+
+Setting up test environment...
+Compiling...
+================================================================
+
+
+Running tests...
+================================================================
+minWeight_OneEdge_ReturnValue . [10 pts] - passed
+minWeight_OneEdge_EdgeLabel . . [10 pts] - passed
+minWeight_MultiEdge_ReturnValue [10 pts] - passed
+minWeight_MultiEdge_EdgeLabels  [15 pts] - passed
+minPath_OneEdge_ReturnValue . . [10 pts] - passed
+minPath_OneEdge_EdgeLabel . . . [10 pts] - passed
+minPath_MultiEdge_ReturnValue . [10 pts] - FAILED: unit_tests.cpp:82: Assertion (GraphTools::findShortestPath(graph, 6, 4) == 4) failed
+minPath_MultiEdge_EdgeLabels  . [10 pts] - passed
+kruskal_all . . . . . . . . . . [15 pts] - passed
+
+
+Total score...
+================================================================
+TOTAL SCORE: 90
+
+
+
+Detailed test output...
+================================================================
+----------------------------------------------------------------
+minPath_MultiEdge_ReturnValue [10 points]
+Result: FAILED: unit_tests.cpp:82: Assertion (GraphTools::findShortestPath(graph, 6, 4) == 4) failed
+Took 0ms (1000ms timeout)
+Output:
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+Total score...
+================================================================
+TOTAL SCORE: 90
+
