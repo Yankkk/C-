@@ -1,8 +1,7 @@
-Grading revision r58973 by khattar2, dated 2014-12-08 02:07:19.000507398 -0600 CST
 Monad Autograder
-Testing mp7 at 2014-12-09 13:18:31
+Testing mp7 at 2014-12-09 14:59:08
 
-"Java is, in many ways, C++-." ~ Michael Feldman
+"Hey Jude / Your make is bad / You should fix that / Compiler error / Remember / To let it search the root path / Then you can start / To make it better" ~ Ryan North
 
 Setting up test environment...
 Compiling...
