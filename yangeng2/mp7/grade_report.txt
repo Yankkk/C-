@@ -1,9 +1,8 @@
-svn: Working copy '/dev/shm/225/cs225_current_checkout' locked
-svn: run 'svn cleanup' to remove locks (type 'svn help cleanup' for details)
+Grading revision r58973 by khattar2, dated 2014-12-08 02:07:19.000507398 -0600 CST
 Monad Autograder
-Testing mp7 at 2014-12-08 01:55:01
+Testing mp7 at 2014-12-09 13:18:31
 
-"If you're not failing every now and again, it's a sign you're not doing anything very innovative." ~ Woody Allen
+"Java is, in many ways, C++-." ~ Michael Feldman
 
 Setting up test environment...
 Compiling...
